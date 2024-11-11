@@ -36,7 +36,13 @@ func main() {
 
 	// Route to generate captcha
 	e.GET("/captcha", func(c echo.Context) error {
-		driver := base64Captcha.NewDriverDigit(80, 240, 5, 0.7, 80)
+    // driver := base64Captcha.NewDriverDigit(80, 240, 5, 0.7, 80)
+	//driver := base64Captcha.NewDriverString(
+	//	60, 160, 40, base64Captcha.OptionShowHollowLine|base64Captcha.OptionShowSlimeLine|base64Captcha.OptionShowSineLine,
+	//	4, "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", nil, nil, []string{"DeborahFancyDress.ttf"})
+	driver := base64Captcha.NewDriverString(
+		60, 160, 20, base64Captcha.OptionShowHollowLine|base64Captcha.OptionShowSineLine, 4,
+		"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", nil, nil, []string{"actionj.ttf"})
 		cp := base64Captcha.NewCaptcha(driver, base64Captcha.DefaultMemStore)
 		id, b64s, answer, err := cp.Generate()
 		if err != nil {
