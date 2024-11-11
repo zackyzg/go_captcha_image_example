@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<form action="/login" method="post">
+    
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+    </div>
+
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+    </div>
+
+    <div>
+        <label for="captcha">Captcha:</label>
+        <input type="text" id="captcha" name="captcha">
+    </div>
+
+    <div>
+        <img id="captcha-img" src="" alt="captcha" onclick="refreshCaptcha()">
+    </div>
+
+    <div>
+        <button type="submit">Login</button>
+    </div>
+</form>
+<script>
+    function refreshCaptcha() {
+        fetch('/captcha')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('captcha-img').src = data.captcha;
+            });
+    }
+
+    // Load captcha on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        refreshCaptcha();
+    });
+</script>
+</body>
+</html>
